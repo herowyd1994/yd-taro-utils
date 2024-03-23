@@ -1,0 +1,22 @@
+{
+    "name": "@yd/taro-utils",
+    "version": "1.0.0",
+    "description": "## taro工具库",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitee.com/herowyd1994/yd-taro-utils.git"
+    },
+    "author": "~Wyd丶",
+    "license": "ISC",
+    "dependencies": {
+        "@yd/utils": "https://gitee.com/herowyd1994/yd-utils.git"
+    },
+    "devDependencies": {
+        "@tarojs/taro": "^3.6.25",
+        "prettier": "^3.2.5"
+    }
+}
