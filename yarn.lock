@@ -38,9 +38,9 @@
   dependencies:
     "@tarojs/api" "3.6.25"
 
-"@yd/utils@https://gitee.com/herowyd1994/yd-utils.git":
+"@yd/utils@https://github.com/herowyd1994/yd-utils.git":
   version "1.0.0"
-  resolved "https://gitee.com/herowyd1994/yd-utils.git#ae2f3681a1172d48b8632a7fcd688b13cdb2a007"
+  resolved "https://github.com/herowyd1994/yd-utils.git#e6a333994515dcee3dc4d90d74cff81c9f370a6e"
 
 lodash-es@4.17.21:
   version "4.17.21"

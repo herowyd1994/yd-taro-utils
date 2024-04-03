@@ -8,12 +8,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://gitee.com/herowyd1994/yd-taro-utils.git"
+        "url": "git@github.com:herowyd1994/yd-taro-utils.git"
     },
     "author": "~Wyd丶",
     "license": "ISC",
     "dependencies": {
-        "@yd/utils": "https://gitee.com/herowyd1994/yd-utils.git"
+        "@yd/utils": "https://github.com/herowyd1994/yd-utils.git"
     },
     "devDependencies": {
         "@tarojs/taro": "^3.6.25",
