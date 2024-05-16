@@ -85,7 +85,7 @@ export const setStorage = (key: string, params: any) =>
     Taro.setStorage({ key, data: JSON.stringify(params) });
 export const removeStorage = async (keys: string | string[] | '*' = '*') => {
     if (keys === '*') {
-        const res = await Taro.getStorageInfo();
+        const res = (await Taro.getStorageInfo()) as any;
         keys = res.keys;
     }
     keys = (typeof keys === 'string' ? [keys] : keys) as string[];
