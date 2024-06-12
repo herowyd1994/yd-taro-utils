@@ -12,7 +12,7 @@ import { transformUrlParams, sleep } from '@yd/utils';
 /**
  * 路由跳转
  * @param {string} url
- * @param {object} params
+ * @param {Record<string, any>} params
  * @returns {Promise<TaroGeneral.CallbackResult>}
  */
 export const push = (url: string, params: Record<string, any> = {}) =>
@@ -21,15 +21,21 @@ export const push = (url: string, params: Record<string, any> = {}) =>
     :   Taro.navigateTo({ url: `${url}${transformUrlParams(params)}` });
 export const replace = (url: string, params: Record<string, any> = {}) =>
     Taro.redirectTo({ url: `${url}${transformUrlParams(params)}` });
+export const reLaunch = (url: string, params: Record<string, any> = {}) =>
+    Taro.reLaunch({ url: `${url}${transformUrlParams(params)}` });
+export const switchTab = (url: string, params: Record<string, any> = {}) =>
+    Taro.switchTab({ url: `${url}${transformUrlParams(params)}` });
+/**
+ * 返回页面
+ * @param {number} delta
+ * @param {number} delay
+ * @returns {Promise<TaroGeneral.CallbackResult>}
+ */
 export const back = async (delta: number = 1, delay: number = 0) => {
     await sleep(delay);
     const num = getPageNum();
     return Taro.navigateBack({ delta: delta > num ? num : delta });
 };
-export const reLaunch = (url: string, params: Record<string, any> = {}) =>
-    Taro.reLaunch({ url: `${url}${transformUrlParams(params)}` });
-export const switchTab = (url: string, params: Record<string, any> = {}) =>
-    Taro.switchTab({ url: `${url}${transformUrlParams(params)}` });
 /**
  * 获取页面数量
  * @returns {any}
@@ -46,6 +52,12 @@ export const getPageNum = () => {
  */
 export const toast = (title: string, duration: number = 1500) =>
     Taro.showToast({ title, icon: 'none', duration });
+/**
+ * 加载中
+ * @param {string} title
+ * @param {number} delay
+ * @returns {() => Promise<void>}
+ */
 export const loading = (title: string, delay: number = 0) => {
     Taro.showLoading({ title, mask: true });
     return async () => {
@@ -53,6 +65,13 @@ export const loading = (title: string, delay: number = 0) => {
         Taro.hideLoading();
     };
 };
+/**
+ * 警告框
+ * @param {string | string[]} content
+ * @param {string} title
+ * @param {ShowModalOption} option
+ * @returns {Promise<never>}
+ */
 export const alert = async (
     content: string | string[],
     title: string = '',
@@ -73,7 +92,7 @@ export const alert = async (
 export const confirm = (content: string | string[], title: string = '', option?: ShowModalOption) =>
     alert(content, title, { showCancel: true, cancelColor: '#666666', ...option });
 /**
- * 本地存储
+ * 获取本地缓存
  * @param {string} key
  * @returns {any}
  */
@@ -81,8 +100,19 @@ export const getStorage = async (key: string) => {
     const { data } = await Taro.getStorage({ key }).catch(() => ({ data: JSON.stringify(null) }));
     return JSON.parse(data);
 };
+/**
+ * 设置本地缓存
+ * @param {string} key
+ * @param params
+ * @returns {Promise<TaroGeneral.CallbackResult>}
+ */
 export const setStorage = (key: string, params: any) =>
     Taro.setStorage({ key, data: JSON.stringify(params) });
+/**
+ * 删除本地缓存
+ * @param {string | string[] | "*"} keys
+ * @returns {Promise<Awaited<TaroGeneral.CallbackResult>[]>}
+ */
 export const removeStorage = async (keys: string | string[] | '*' = '*') => {
     if (keys === '*') {
         const res = (await Taro.getStorageInfo()) as any;
