@@ -119,7 +119,7 @@ export const removeStorage = async (keys: string | string[] | '*' = '*') => {
         keys = res.keys;
     }
     keys = (typeof keys === 'string' ? [keys] : keys) as string[];
-    return Promise.all(keys.map((key) => Taro.removeStorage({ key })));
+    return Promise.all(keys.map(key => Taro.removeStorage({ key })));
 };
 /**
  * 获取元素信息
@@ -127,7 +127,7 @@ export const removeStorage = async (keys: string | string[] | '*' = '*') => {
  * @returns {Promise<BoundingClientRectCallback[]>}
  */
 export const getBoundingClientRect = (selector: string) =>
-    new Promise<BoundingClientRectCallback[]>((resolve) => {
+    new Promise<BoundingClientRectCallback[]>(resolve => {
         Taro.createSelectorQuery()
             .selectAll(selector)
             .boundingClientRect()
