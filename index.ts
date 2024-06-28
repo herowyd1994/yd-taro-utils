@@ -56,14 +56,17 @@ export const toast = (title: string, duration: number = 1500) =>
  * 加载中
  * @param {string} title
  * @param {number} delay
+ * @param {number} timeOut
  * @returns {() => Promise<void>}
  */
-export const loading = (title: string, delay: number = 0) => {
+export const loading = (title: string = '加载中...', delay: number = 0, timeOut: number = 5000) => {
     Taro.showLoading({ title, mask: true });
-    return async () => {
+    const hide = async () => {
         await sleep(delay);
         Taro.hideLoading();
     };
+    setTimeout(hide, timeOut);
+    return hide;
 };
 /**
  * 警告框
