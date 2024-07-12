@@ -1,12 +1,7 @@
 /** @format */
 
 import * as Taro from '@tarojs/taro';
-import {
-    BoundingClientRectCallback,
-    RequestPaymentOption,
-    ShowModalOption,
-    AuthorizeScope
-} from './types';
+import { BoundingClientRectCallback, RequestPaymentOption, ShowModalOption, AuthorizeScope } from './types';
 import { transformUrlParams, sleep } from '@yd/utils';
 
 /**
@@ -50,8 +45,7 @@ export const getPageNum = () => {
  * @param {number} duration
  * @returns {Promise<TaroGeneral.CallbackResult>}
  */
-export const toast = (title: string, duration: number = 1500) =>
-    Taro.showToast({ title, icon: 'none', duration });
+export const toast = (title: string, duration: number = 1500) => Taro.showToast({ title, icon: 'none', duration });
 /**
  * 加载中
  * @param {string} title
@@ -75,11 +69,7 @@ export const loading = (title: string = '加载中...', delay: number = 0, timeO
  * @param {ShowModalOption} option
  * @returns {Promise<never>}
  */
-export const alert = async (
-    content: string | string[],
-    title: string = '',
-    option?: ShowModalOption
-) => {
+export const alert = async (content: string | string[], title: string = '', option?: ShowModalOption) => {
     content = typeof content === 'string' ? [content] : content;
     const { confirm } = await Taro.showModal({
         title,
@@ -109,8 +99,7 @@ export const getStorage = async (key: string) => {
  * @param params
  * @returns {Promise<TaroGeneral.CallbackResult>}
  */
-export const setStorage = (key: string, params: any) =>
-    Taro.setStorage({ key, data: JSON.stringify(params) });
+export const setStorage = (key: string, params: any) => Taro.setStorage({ key, data: JSON.stringify(params) });
 /**
  * 删除本地缓存
  * @param {string | string[] | "*"} keys
@@ -180,10 +169,7 @@ export const chooseMedia = async (
  * @param {"video" | "image" | "file" | "all"} type
  * @returns {Promise<ChooseFile[]>}
  */
-export const chooseMessageFile = async (
-    count: number = 1,
-    type: 'video' | 'image' | 'file' | 'all' = 'all'
-) => {
+export const chooseMessageFile = async (count: number = 1, type: 'video' | 'image' | 'file' | 'all' = 'all') => {
     const { tempFiles } = await Taro.chooseMessageFile({ count, type });
     return tempFiles;
 };
@@ -193,8 +179,7 @@ export const chooseMessageFile = async (
  * @param {number} i
  * @returns {Promise<TaroGeneral.CallbackResult>}
  */
-export const previewImage = (urls: string[], i: number = 0) =>
-    Taro.previewImage({ urls, current: urls[i] });
+export const previewImage = (urls: string[], i: number = 0) => Taro.previewImage({ urls, current: urls[i] });
 /**
  * 获取系统信息
  * @returns {getSystemInfoSync.Result}
@@ -229,10 +214,7 @@ export const makePhoneCall = (phoneNumber: string) =>
  * @returns {Promise<void>}
  */
 export const saveImageToPhotosAlbum = async (filePath: string) => {
-    await authorize(
-        AuthorizeScope.WritePhotosAlbum,
-        '您点击了拒绝授权将无法保存相册,点击确定重新获取授权'
-    );
+    await authorize(AuthorizeScope.WritePhotosAlbum, '您点击了拒绝授权将无法保存相册,点击确定重新获取授权');
     await Taro.saveImageToPhotosAlbum({ filePath });
     await toast('保存成功');
 };
