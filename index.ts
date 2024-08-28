@@ -56,10 +56,11 @@ export const toast = (title: string, duration: number = 1500) => Taro.showToast(
 export const loading = (title: string = '加载中...', delay: number = 0, timeOut: number = 15000) => {
     Taro.showLoading({ title, mask: true });
     const hide = async () => {
+        clearTimeout(timer);
         await sleep(delay);
         Taro.hideLoading();
     };
-    setTimeout(async () => {
+    const timer = setTimeout(async () => {
         await hide();
         toast('已超过...');
     }, timeOut);
@@ -78,7 +79,7 @@ export const alert = async (content: string | string[], title: string = '', opti
         title,
         content: (content as string[]).join('\r\n'),
         showCancel: false,
-        confirmColor: '#4096ff',
+        confirmColor: '#4096FF',
         ...option
     });
     if (!confirm) {
@@ -105,7 +106,7 @@ export const getStorage = async (key: string) => {
 export const setStorage = (key: string, params: any) => Taro.setStorage({ key, data: JSON.stringify(params) });
 /**
  * 删除本地缓存
- * @param {string | string[] | "*"} keys
+ * @param {string | string[] | '*'} keys
  * @returns {Promise<Awaited<TaroGeneral.CallbackResult>[]>}
  */
 export const removeStorage = async (keys: string | string[] | '*' = '*') => {
@@ -146,9 +147,9 @@ export const setClipboardData = async (data: string) => {
 /**
  * 拍摄或从手机相册中选择图片或视频
  * @param {number} count
- * @param {"video" | "image" | "*"} mediaType
- * @param {"album" | "camera" | "*"} sourceType
- * @param {"back" | "front"} camera
+ * @param {'video' | 'image' | '*'} mediaType
+ * @param {'album' | 'camera' | '*'} sourceType
+ * @param {'back' | 'front'} camera
  * @returns {Promise<chooseMedia.SuccessCallbackResult>}
  */
 export const chooseMedia = async (
@@ -169,7 +170,7 @@ export const chooseMedia = async (
 /**
  * 从客户端会话选择文件
  * @param {number} count
- * @param {"video" | "image" | "file" | "all"} type
+ * @param {'video' | 'image' | 'file' | 'all'} type
  * @returns {Promise<ChooseFile[]>}
  */
 export const chooseMessageFile = async (count: number = 1, type: 'video' | 'image' | 'file' | 'all' = 'all') => {
