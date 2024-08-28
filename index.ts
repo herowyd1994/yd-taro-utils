@@ -59,7 +59,10 @@ export const loading = (title: string = '加载中...', delay: number = 0, timeO
         await sleep(delay);
         Taro.hideLoading();
     };
-    setTimeout(hide, timeOut);
+    setTimeout(async () => {
+        await hide();
+        toast('已超过...');
+    }, timeOut);
     return hide;
 };
 /**
