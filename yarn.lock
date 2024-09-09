@@ -40,7 +40,7 @@
 
 "@yd/utils@https://github.com/herowyd1994/yd-utils.git":
   version "1.0.0"
-  resolved "https://github.com/herowyd1994/yd-utils.git#7d1fccce3e7ac0dc50cf4cbdccb3dd345d4f4284"
+  resolved "https://github.com/herowyd1994/yd-utils.git#0aa678ba1050425c92f992d64c4077f60fcc2238"
 
 lodash-es@4.17.21:
   version "4.17.21"
