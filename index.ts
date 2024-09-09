@@ -62,7 +62,7 @@ export const loading = (title: string = '加载中...', delay: number = 0, timeO
     };
     const timer = setTimeout(async () => {
         await hide();
-        toast('已超过...');
+        toast('已超时...');
     }, timeOut);
     return hide;
 };
