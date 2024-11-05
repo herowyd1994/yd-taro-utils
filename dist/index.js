@@ -17,18 +17,12 @@ export const getPageNum = () => {
     return length;
 };
 export const toast = (title, duration = 1500) => Taro.showToast({ title, icon: 'none', duration });
-export const loading = (title = '加载中...', delay = 0, timeOut = 15000) => {
+export const loading = (title = '加载中...', delay = 0) => {
     Taro.showLoading({ title, mask: true });
-    const hide = async () => {
-        clearTimeout(timer);
+    return async () => {
         await sleep(delay);
         Taro.hideLoading();
     };
-    const timer = setTimeout(async () => {
-        await hide();
-        toast('已超时...');
-    }, timeOut);
-    return hide;
 };
 export const alert = async (content, title = '', option) => {
     content = typeof content === 'string' ? [content] : content;
