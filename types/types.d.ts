@@ -24,6 +24,12 @@ export interface ShowModalOption {
     showCancel?: boolean;
     title?: string;
 }
+export interface Loading {
+    title: string;
+    delay: number;
+    timeOut: number;
+    onError(): void;
+}
 export declare enum AuthorizeScope {
     UserLocation = "scope.userLocation",
     UserFuzzyLocation = "scope.userFuzzyLocation",

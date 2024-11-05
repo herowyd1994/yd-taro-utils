@@ -1,4 +1,5 @@
 /** @format */
+import { toast } from './index';
 
 export interface BoundingClientRectCallback {
     bottom: number;
@@ -25,6 +26,12 @@ export interface ShowModalOption {
     content?: string;
     showCancel?: boolean;
     title?: string;
+}
+export interface Loading {
+    title: string;
+    delay: number;
+    timeOut: number;
+    onError(): void;
 }
 export enum AuthorizeScope {
     // 精确地理位置

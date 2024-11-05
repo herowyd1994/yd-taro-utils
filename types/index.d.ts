@@ -1,5 +1,5 @@
 import * as Taro from '@tarojs/taro';
-import { BoundingClientRectCallback, RequestPaymentOption, ShowModalOption, AuthorizeScope } from './types';
+import { BoundingClientRectCallback, RequestPaymentOption, ShowModalOption, AuthorizeScope, Loading } from './types';
 export declare const push: (url: string, params?: Record<string, any>) => Promise<TaroGeneral.CallbackResult>;
 export declare const replace: (url: string, params?: Record<string, any>) => Promise<TaroGeneral.CallbackResult>;
 export declare const reLaunch: (url: string, params?: Record<string, any>) => Promise<TaroGeneral.CallbackResult>;
@@ -7,7 +7,10 @@ export declare const switchTab: (url: string, params?: Record<string, any>) => P
 export declare const back: (delta?: number, delay?: number) => Promise<TaroGeneral.CallbackResult>;
 export declare const getPageNum: () => number;
 export declare const toast: (title: string, duration?: number) => Promise<TaroGeneral.CallbackResult>;
-export declare const loading: (title?: string, delay?: number) => () => Promise<void>;
+export declare const loading: ({ title, delay, timeOut, onError }?: Partial<Loading>) => {
+    clear: () => void;
+    hide: () => Promise<void>;
+};
 export declare const alert: (content: string | string[], title?: string, option?: ShowModalOption) => Promise<never>;
 export declare const confirm: (content: string | string[], title?: string, option?: ShowModalOption) => Promise<never>;
 export declare const getStorage: (key: string) => Promise<any>;

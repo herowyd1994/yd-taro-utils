@@ -5,7 +5,8 @@ import {
     BoundingClientRectCallback,
     RequestPaymentOption,
     ShowModalOption,
-    AuthorizeScope
+    AuthorizeScope,
+    Loading
 } from './types';
 import { transformUrlParams, sleep } from '@yd/utils';
 
@@ -56,13 +57,30 @@ export const toast = (title: string, duration: number = 1500) =>
  * 加载中
  * @param {string} title
  * @param {number} delay
- * @returns {() => Promise<void>}
+ * @param {number} timeOut
+ * @param {() => void} onError
+ * @returns {{hide: () => Promise<void>, clear: () => void}}
  */
-export const loading = (title: string = '加载中...', delay: number = 0) => {
+export const loading = ({
+    title = '加载中...',
+    delay = 0,
+    timeOut = 15000,
+    onError = () => toast('已超时...')
+}: Partial<Loading> = {}) => {
     Taro.showLoading({ title, mask: true });
-    return async () => {
+    const timer = setTimeout(async () => {
+        await hide();
+        onError();
+    }, timeOut);
+    const clear = () => clearTimeout(timer);
+    const hide = async () => {
+        clear();
         await sleep(delay);
         Taro.hideLoading();
+    };
+    return {
+        clear,
+        hide
     };
 };
 /**
