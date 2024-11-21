@@ -29,7 +29,7 @@
     "@tarojs/runtime" "4.0.7"
     "@types/postcss-url" "^10.0.4"
 
-"@types/node@*", "@types/node@^22.8.6":
+"@types/node@*":
   version "22.8.6"
   resolved "https://registry.npmmirror.com/@types/node/-/node-22.8.6.tgz#e8a0c0871623283d8b3ef7d7b9b1bfdfd3028e22"
   integrity sha512-tosuJYKrIqjQIlVCM4PEGxOmyg3FCPa/fViuJChnGeEIhjA46oy8FMVoF9su1/v8PNs2a8Q0iFNyOx0uOF91nw==
@@ -46,7 +46,7 @@
 
 "@yd/utils@https://github.com/herowyd1994/yd-utils.git":
   version "1.0.1"
-  resolved "https://github.com/herowyd1994/yd-utils.git#10fbfc8bf1319085c771879b1015a60d75ba13a6"
+  resolved "https://github.com/herowyd1994/yd-utils.git#34ef0d1255457f5b86a9176ece2c884993270a97"
 
 nanoid@^3.3.7:
   version "3.3.7"

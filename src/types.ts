@@ -1,5 +1,4 @@
 /** @format */
-import { toast } from './index';
 
 export interface BoundingClientRectCallback {
     bottom: number;
