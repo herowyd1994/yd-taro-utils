@@ -17,22 +17,18 @@ export const getPageNum = () => {
     return length;
 };
 export const toast = (title, duration = 1500) => Taro.showToast({ title, icon: 'none', duration });
-export const loading = ({ title = '加载中...', delay = 0, timeOut = 15000, onError = () => toast('已超时...') } = {}) => {
+export const loading = ({ title = '加载中...', delay = 0, timeout = 15000, onTimeout = () => toast('已超时...') } = {}) => {
     Taro.showLoading({ title, mask: true });
     const timer = setTimeout(async () => {
         await hide();
-        onError();
-    }, timeOut);
-    const clear = () => clearTimeout(timer);
+        onTimeout();
+    }, timeout);
     const hide = async () => {
-        clear();
+        clearTimeout(timer);
         await sleep(delay);
         Taro.hideLoading();
     };
-    return {
-        clear,
-        hide
-    };
+    return hide;
 };
 export const alert = async (content, title = '', option) => {
     content = typeof content === 'string' ? [content] : content;

@@ -27,8 +27,8 @@ export interface ShowModalOption {
 export interface Loading {
     title: string;
     delay: number;
-    timeOut: number;
-    onError(): void;
+    timeout: number;
+    onTimeout(): void;
 }
 export declare enum AuthorizeScope {
     UserLocation = "scope.userLocation",

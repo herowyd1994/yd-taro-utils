@@ -57,31 +57,27 @@ export const toast = (title: string, duration: number = 1500) =>
  * 加载中
  * @param {string} title
  * @param {number} delay
- * @param {number} timeOut
- * @param {() => void} onError
- * @returns {{hide: () => Promise<void>, clear: () => void}}
+ * @param {number} timeout
+ * @param {() => void} onTimeout
+ * @returns {() => Promise<void>}
  */
 export const loading = ({
     title = '加载中...',
     delay = 0,
-    timeOut = 15000,
-    onError = () => toast('已超时...')
+    timeout = 15000,
+    onTimeout = () => toast('已超时...')
 }: Partial<Loading> = {}) => {
     Taro.showLoading({ title, mask: true });
     const timer = setTimeout(async () => {
         await hide();
-        onError();
-    }, timeOut);
-    const clear = () => clearTimeout(timer);
+        onTimeout();
+    }, timeout);
     const hide = async () => {
-        clear();
+        clearTimeout(timer);
         await sleep(delay);
         Taro.hideLoading();
     };
-    return {
-        clear,
-        hide
-    };
+    return hide;
 };
 /**
  * 警告框
