@@ -14,7 +14,7 @@ import { transformUrlParams, sleep } from '@yd/utils';
  * 路由跳转
  * @param {string} url
  * @param {Record<string, any>} params
- * @returns {Promise<TaroGeneral.CallbackResult>}
+ * @returns {Promise<void> | Promise<TaroGeneral.CallbackResult>}
  */
 export const push = (url: string, params: Record<string, any> = {}) =>
     getPageNum() >= 10 ?
@@ -27,15 +27,15 @@ export const reLaunch = (url: string, params: Record<string, any> = {}) =>
 export const switchTab = (url: string, params: Record<string, any> = {}) =>
     Taro.switchTab({ url: `${url}${transformUrlParams(params)}` });
 /**
- * 返回页面
+ * 路由返回
  * @param {number} delta
  * @param {number} delay
- * @returns {Promise<TaroGeneral.CallbackResult>}
+ * @returns {Promise<void>}
  */
 export const back = async (delta: number = 1, delay: number = 0) => {
     await sleep(delay);
     const num = getPageNum();
-    return Taro.navigateBack({ delta: delta > num ? num : delta });
+    await Taro.navigateBack({ delta: delta > num ? num : delta });
 };
 /**
  * 获取页面数量
@@ -49,10 +49,12 @@ export const getPageNum = () => {
  * 提示框
  * @param {string} title
  * @param {number} duration
- * @returns {Promise<TaroGeneral.CallbackResult>}
+ * @returns {Promise<void>}
  */
-export const toast = (title: string, duration: number = 1500) =>
-    Taro.showToast({ title, icon: 'none', duration });
+export const toast = async (title: string, duration: number = 1500) => {
+    await Taro.showToast({ title, icon: 'none', duration });
+    await sleep(duration);
+};
 /**
  * 加载中
  * @param {string} title
@@ -108,7 +110,7 @@ export const confirm = (content: string | string[], title: string = '', option?:
 /**
  * 获取本地缓存
  * @param {string} key
- * @returns {any}
+ * @returns {Promise<any>}
  */
 export const getStorage = async (key: string) => {
     const { data } = await Taro.getStorage({ key }).catch(() => ({ data: JSON.stringify(null) }));
@@ -124,7 +126,7 @@ export const setStorage = (key: string, params: any) =>
     Taro.setStorage({ key, data: JSON.stringify(params) });
 /**
  * 删除本地缓存
- * @param {string | string[] | '*'} keys
+ * @param {string | string[] | "*"} keys
  * @returns {Promise<Awaited<TaroGeneral.CallbackResult>[]>}
  */
 export const removeStorage = async (keys: string | string[] | '*' = '*') => {
@@ -154,21 +156,21 @@ export const getBoundingClientRect = (selector: string) =>
  */
 export const getImageInfo = (src: string) => Taro.getImageInfo({ src });
 /**
- * 设置系统剪贴板的内容
+ * 设置剪贴板内容
  * @param {string} data
  * @returns {Promise<void>}
  */
 export const setClipboardData = async (data: string) => {
     await Taro.setClipboardData({ data });
-    return toast('复制成功');
+    await toast('复制成功');
 };
 /**
- * 拍摄或从手机相册中选择图片或视频
+ * 拍摄或从相册中选择图片、视频
  * @param {number} count
- * @param {'video' | 'image' | '*'} mediaType
- * @param {'album' | 'camera' | '*'} sourceType
- * @param {'back' | 'front'} camera
- * @returns {Promise<chooseMedia.SuccessCallbackResult>}
+ * @param {"video" | "image" | "*"} mediaType
+ * @param {"album" | "camera" | "*"} sourceType
+ * @param {"back" | "front"} camera
+ * @returns {Promise<ChooseMedia[]>}
  */
 export const chooseMedia = async (
     count: number = 1,
@@ -186,7 +188,7 @@ export const chooseMedia = async (
     return tempFiles;
 };
 /**
- * 从客户端会话选择文件
+ * 会话选择文件
  * @param {number} count
  * @param {'video' | 'image' | 'file' | 'all'} type
  * @returns {Promise<ChooseFile[]>}
@@ -199,7 +201,7 @@ export const chooseMessageFile = async (
     return tempFiles;
 };
 /**
- * 在新页面中全屏预览图片
+ * 预览图片
  * @param {string[]} urls
  * @param {number} i
  * @returns {Promise<TaroGeneral.CallbackResult>}
@@ -212,7 +214,7 @@ export const previewImage = (urls: string[], i: number = 0) =>
  */
 export const getSystemInfo = () => Taro.getSystemInfoSync();
 /**
- * 调用接口获取登录凭证（code）
+ * 获取登录凭证
  * @returns {Promise<string>}
  */
 export const login = async () => {
@@ -235,7 +237,7 @@ export const makePhoneCall = (phoneNumber: string) =>
         toast('拨打的电话格式不正确')
     :   Taro.makePhoneCall({ phoneNumber });
 /**
- * 保存图片到系统相册
+ * 保存图片到相册
  * @param {string} filePath
  * @returns {Promise<void>}
  */
@@ -245,10 +247,10 @@ export const saveImageToPhotosAlbum = async (filePath: string) => {
         '您点击了拒绝授权将无法保存相册,点击确定重新获取授权'
     );
     await Taro.saveImageToPhotosAlbum({ filePath });
-    return toast('保存成功');
+    await toast('保存成功');
 };
 /**
- * 提前向用户发起授权请求
+ * 向用户发起授权请求
  * @param {AuthorizeScope} scope
  * @param {string} message
  * @returns {Promise<TaroGeneral.CallbackResult>}
