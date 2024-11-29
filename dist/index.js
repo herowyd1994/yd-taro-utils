@@ -10,13 +10,16 @@ export const switchTab = (url, params = {}) => Taro.switchTab({ url: `${url}${tr
 export const back = async (delta = 1, delay = 0) => {
     await sleep(delay);
     const num = getPageNum();
-    return Taro.navigateBack({ delta: delta > num ? num : delta });
+    await Taro.navigateBack({ delta: delta > num ? num : delta });
 };
 export const getPageNum = () => {
     const { length } = Taro.getCurrentPages();
     return length;
 };
-export const toast = (title, duration = 1500) => Taro.showToast({ title, icon: 'none', duration });
+export const toast = async (title, duration = 1500) => {
+    await Taro.showToast({ title, icon: 'none', duration });
+    await sleep(duration);
+};
 export const loading = ({ title = '加载中...', delay = 0, timeout = 15000, onTimeout = () => toast('已超时...') } = {}) => {
     Taro.showLoading({ title, mask: true });
     const timer = setTimeout(async () => {
@@ -66,7 +69,7 @@ export const getBoundingClientRect = (selector) => new Promise(resolve => {
 export const getImageInfo = (src) => Taro.getImageInfo({ src });
 export const setClipboardData = async (data) => {
     await Taro.setClipboardData({ data });
-    return toast('复制成功');
+    await toast('复制成功');
 };
 export const chooseMedia = async (count = 1, mediaType = '*', sourceType = '*', camera = 'back') => {
     const { tempFiles } = await Taro.chooseMedia({
@@ -95,7 +98,7 @@ export const makePhoneCall = (phoneNumber) => !/^(?:(?:\+|00)86)?1\d{10}$/.test(
 export const saveImageToPhotosAlbum = async (filePath) => {
     await authorize(AuthorizeScope.WritePhotosAlbum, '您点击了拒绝授权将无法保存相册,点击确定重新获取授权');
     await Taro.saveImageToPhotosAlbum({ filePath });
-    return toast('保存成功');
+    await toast('保存成功');
 };
 export const authorize = async (scope, message) => {
     const { authSetting } = await Taro.getSetting();
