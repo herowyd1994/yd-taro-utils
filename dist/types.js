@@ -1,4 +1,7 @@
-export var AuthorizeScope;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthorizeScope = void 0;
+var AuthorizeScope;
 (function (AuthorizeScope) {
     AuthorizeScope["UserLocation"] = "scope.userLocation";
     AuthorizeScope["UserFuzzyLocation"] = "scope.userFuzzyLocation";
@@ -14,4 +17,4 @@ export var AuthorizeScope;
     AuthorizeScope["InvoiceTitle"] = "scope.invoiceTitle";
     AuthorizeScope["Invoice"] = "scope.invoice";
     AuthorizeScope["UserInfo"] = "scope.userInfo";
-})(AuthorizeScope || (AuthorizeScope = {}));
+})(AuthorizeScope || (exports.AuthorizeScope = AuthorizeScope = {}));

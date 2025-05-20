@@ -46,7 +46,7 @@
 
 "@yd/utils@https://github.com/herowyd1994/yd-utils.git":
   version "1.0.1"
-  resolved "https://github.com/herowyd1994/yd-utils.git#34ef0d1255457f5b86a9176ece2c884993270a97"
+  resolved "https://github.com/herowyd1994/yd-utils.git#473aead56ab3eed6dbfea4cb7bb21de0dc9ec2b8"
 
 nanoid@^3.3.7:
   version "3.3.7"
